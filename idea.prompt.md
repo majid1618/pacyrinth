@@ -1,0 +1,1 @@
+create a mobile game, 3d-pac-man with the concept of labyrinth, get the detalis from file "labyrinth-pacman-game-guide.md". guide me to set the needed environment to make a mobile game, download what you need.

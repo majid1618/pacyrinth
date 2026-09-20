@@ -1,0 +1,15 @@
+# Godot
+.godot/
+*.tmp
+
+# Exports
+builds/
+
+# Tools & downloads (large, reproducible)
+tools/
+Godot_v*_linux.x86_64
+*.bak
+
+# System
+Thumbs.db
+Desktop.ini

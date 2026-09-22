@@ -9,9 +9,9 @@ signal game_over
 signal level_won
 
 enum State { PLAYING, WON, LOST }
-const VERSION := "0.12.3"
+const VERSION := "0.13.0"
 
-const BUILD := "2026.09.19.1"
+const BUILD := "2026.09.22.1"
 
 const START_LIVES := 3
 const INVULN_MS := 2200
@@ -44,6 +44,7 @@ var sensitivity := 2.0
 var stage := 0
 var unlocked_stage := 0
 var sound_on := true
+var music_on := true
 var rotate180 := true
 var reverse_tilt := false
 var paused := false
@@ -53,9 +54,32 @@ var leaderboard: Array = []
 var _invuln_until_ms := 0
 var _power_id := ""
 var _power_until_ms := 0
+var _test_banner: AdView
+var _ad_initialization_listener := OnInitializationCompleteListener.new()
+var _ad_listener := AdListener.new()
 
 func _ready() -> void:
 	load_settings()
+	if OS.get_name() == "Android":
+		_initialize_test_ads()
+
+func _initialize_test_ads() -> void:
+	_ad_initialization_listener.on_initialization_complete = _on_ads_initialized
+	_ad_listener.on_ad_loaded = func() -> void: print("AdMob test banner loaded")
+	_ad_listener.on_ad_failed_to_load = func(error: LoadAdError) -> void:
+		print("AdMob test banner failed: %s" % error.message)
+	MobileAds.initialize(_ad_initialization_listener)
+
+func _on_ads_initialized(_status: InitializationStatus) -> void:
+	if _test_banner != null:
+		return
+	_test_banner = AdView.new(
+		"ca-app-pub-3940256099942544/9214589749",
+		AdSize.get_current_orientation_anchored_adaptive_banner_ad_size(AdSize.FULL_WIDTH),
+		AdPosition.BOTTOM
+	)
+	_test_banner.ad_listener = _ad_listener
+	_test_banner.load_ad(AdRequest.new())
 
 func _process(_delta: float) -> void:
 	if paused:
@@ -110,6 +134,7 @@ func save_settings() -> void:
 	cfg.set_value("controls", "control_mode", control_mode)
 	cfg.set_value("controls", "sensitivity", sensitivity)
 	cfg.set_value("controls", "sound_on", sound_on)
+	cfg.set_value("controls", "music_on", music_on)
 	cfg.set_value("controls", "rotate180", rotate180)
 	cfg.set_value("controls", "reverse_tilt", reverse_tilt)
 	cfg.set_value("progress", "stage", stage)
@@ -129,6 +154,7 @@ func load_settings() -> void:
 			control_mode = "auto"
 		sensitivity = clampf(float(cfg.get_value("controls", "sensitivity", 2.0)), 1.0, 3.0)
 		sound_on = bool(cfg.get_value("controls", "sound_on", true))
+		music_on = bool(cfg.get_value("controls", "music_on", true))
 		rotate180 = bool(cfg.get_value("controls", "rotate180", true))
 		reverse_tilt = bool(cfg.get_value("controls", "reverse_tilt", false))
 		stage = int(cfg.get_value("progress", "stage", 0)) % StagesData.count()

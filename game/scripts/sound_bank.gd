@@ -5,6 +5,7 @@ const RATE := 22050
 var _streams := {}
 var _players: Array[AudioStreamPlayer] = []
 var _pi := 0
+var music_player: AudioStreamPlayer
 
 func _ready() -> void:
 	_build_all()
@@ -13,6 +14,37 @@ func _ready() -> void:
 		p.bus = "Master"
 		add_child(p)
 		_players.append(p)
+
+	music_player = AudioStreamPlayer.new()
+	music_player.bus = "Master"
+	music_player.finished.connect(func():
+		if music_player.stream != null and Game.music_on:
+			music_player.play()
+	)
+	add_child(music_player)
+
+func play_music(stage_idx: int) -> void:
+	var track_num := (stage_idx % 5) + 1
+	var path := "res://music/stage%d.mp3" % track_num
+	if ResourceLoader.exists(path):
+		var stream := load(path)
+		music_player.stream = stream
+		if Game.music_on:
+			music_player.play()
+		else:
+			music_player.stop()
+	else:
+		music_player.stop()
+
+func set_music_enabled(on: bool) -> void:
+	if on:
+		if music_player.stream != null and not music_player.playing:
+			music_player.play()
+	else:
+		music_player.stop()
+
+func stop_music() -> void:
+	music_player.stop()
 
 func play(id: String, vol_db: float = 0.0, pitch: float = 0.0) -> void:
 	if not Game.sound_on:

@@ -4,7 +4,7 @@
 
 Roll a golden pac-ball through a physics-driven 3D labyrinth by tilting your phone — or dragging your thumb. Eat dots, dodge ghosts, grab golden superpower stars, clear six themed stages, and spend your lifetime bank on wild powers from the shop.
 
-- **Live version:** v0.12.3 · build 2026.09.19.1
+- **Live version:** v0.13.0 · build 2026.09.22.1
 
 ---
 
@@ -171,7 +171,9 @@ Advanced stage brings +0.05 m/s ghost speed to keep the chase tense.
 | star | twin chime 1568+2093 Hz (280 ms) | star collected |
 | hurt | descending tremolo square (300 ms) | losing a life |
 
-A **SOUND EFFECTS** toggle persists in settings.
+**Background music** — one MP3 track per stage (`game/music/stage1.mp3` … `stage5.mp3`, cycling by stage index) plays on a dedicated `AudioStreamPlayer`, looping until the run ends; it stops on game over / win / exit to menu.
+
+A **SOUND EFFECTS** toggle and a separate **BACKGROUND MUSIC** toggle persist in settings.
 
 **Haptics** — `Input.vibrate_handheld` drives the Android VIBRATE permission: soft 25 ms on dots, 50 ms on ghost crush, 60 ms on power activation, 40–90 ms on star, 80 ms on rescue, 120 ms on hit.
 

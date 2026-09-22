@@ -4,6 +4,7 @@
 
 # Exports
 builds/
+game/android/
 
 # Tools & downloads (large, reproducible)
 tools/
@@ -13,3 +14,14 @@ Godot_v*_linux.x86_64
 # System
 Thumbs.db
 Desktop.ini
+
+# User-specific files
+*.txt
+Goodot_v*_linux.x86_64.zip
+*.jks
+findings.md
+first-prompt.txt
+inapp-items.md
+tilt_maze_pacman_game_mockup.png
+error.md
+development.md

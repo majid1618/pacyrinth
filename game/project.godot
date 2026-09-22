@@ -8,6 +8,10 @@
 
 config_version=5
 
+[admob]
+
+general/ios/enabled=false
+
 [application]
 
 config/name="Pacyrinth"
@@ -32,6 +36,10 @@ window/handheld/orientation=1
 [dotnet]
 
 project/assembly_name="Pacyrinth"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/admob/plugin.cfg")
 
 [input]
 

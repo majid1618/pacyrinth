@@ -48,3 +48,15 @@ these bugs needs to be fixed:
 then add these features:
 5- for the account section, this game should connect to google play account, let me know what you need from me to prepare for you so as to link it to google games.
 6- add an in-app puchase list of items for each superpower we have, let me decide the value later, save these items into seprate file named "inapp-items.md" where we shall edit the value of each item.
+
+
+
+1. When choose to rotate 180 the game falls is a loop where the yellow ball starts at the finish point and the level finish once started. please fix this issue.
+2. add music to each level, you will find mp3 files in /game/music.
+3. add music and sounds toggle switch in settings.
+
+
+
+
+
+

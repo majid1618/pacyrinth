@@ -274,6 +274,16 @@ func _build_settings_panel() -> void:
 		Game.save_settings())
 	box.add_child(snd)
 
+	var mus := CheckButton.new()
+	mus.text = "BACKGROUND MUSIC"
+	mus.button_pressed = Game.music_on
+	mus.add_theme_font_size_override("font_size", 34)
+	mus.toggled.connect(func(on):
+		Game.music_on = on
+		Game.save_settings()
+		Sound.set_music_enabled(on))
+	box.add_child(mus)
+
 	var rot := CheckButton.new()
 	rot.text = "ROTATE BOARD 180°"
 	rot.button_pressed = Game.rotate180

@@ -52,7 +52,9 @@ func _wire_hud() -> void:
 	hud.next_stage_pressed.connect(_on_next_stage)
 	hud.replay_pressed.connect(_restart_run)
 	hud.play_pressed.connect(_start_game)
-	hud.menu_pressed.connect(func(): get_tree().reload_current_scene())
+	hud.menu_pressed.connect(func():
+		Sound.stop_music()
+		get_tree().reload_current_scene())
 	hud.settings_toggled.connect(_on_settings_toggled)
 	hud.shop_toggled.connect(_on_shop_toggled)
 	hud.shop_buy_pressed.connect(_on_shop_buy)
@@ -86,6 +88,7 @@ func _start_game() -> void:
 	_playground = Node3D.new()
 	_playground.name = "Playground"
 	_playground.position.y = RAISE_TABLE
+	_playground.rotation.y = PI if Game.rotate180 else 0.0
 	board.add_child(_playground)
 	var stage := Game.stage_data()
 	_make_materials(stage)
@@ -106,6 +109,7 @@ func _start_game() -> void:
 	hud.set_dots_total(_dots_left)
 	hud.set_power("", 0.0)
 	_sensor_fallback_check()
+	Sound.play_music(Game.stage)
 	hud.flash_message("GO! TILT OR DRAG TO MOVE", 2.2)
 
 func _on_shop_buy(id: String) -> void:
@@ -195,7 +199,6 @@ func _process(delta: float) -> void:
 	if not _started:
 		return
 	if _playground != null:
-		_playground.rotation.y = PI if Game.rotate180 else 0.0
 		_playground.position.y = RAISE_TABLE
 	if Game.paused:
 		return
@@ -390,7 +393,13 @@ func _make_materials(stage: Dictionary) -> void:
 	_dot_mat.emission = DOT_COLOR
 	_dot_mat.emission_energy_multiplier = 1.6
 
-func _stage_physics() -> PhysicsMaterial:
+func _floor_physics() -> PhysicsMaterial:
+	var pm := PhysicsMaterial.new()
+	pm.friction = float(_stage.get("friction", 0.1))
+	pm.bounce = 0.0
+	return pm
+
+func _wall_physics() -> PhysicsMaterial:
 	var pm := PhysicsMaterial.new()
 	pm.friction = float(_stage.get("friction", 0.1))
 	pm.bounce = float(_stage.get("bounce", 0.1))
@@ -402,7 +411,7 @@ func _build_floor(data: Dictionary) -> void:
 	var body := StaticBody3D.new()
 	body.collision_layer = 2
 	body.collision_mask = 0
-	body.physics_material_override = _stage_physics()
+	body.physics_material_override = _floor_physics()
 	var col := CollisionShape3D.new()
 	var shape := BoxShape3D.new()
 	shape.size = Vector3(w + 2.0, 0.5, d + 2.0)
@@ -421,7 +430,7 @@ func _build_walls(walls: Array) -> void:
 	var body := StaticBody3D.new()
 	body.collision_layer = 1
 	body.collision_mask = 0
-	body.physics_material_override = _stage_physics()
+	body.physics_material_override = _wall_physics()
 	for c in walls:
 		var col := CollisionShape3D.new()
 		var shape := BoxShape3D.new()
@@ -666,5 +675,10 @@ func _on_level_won() -> void:
 func _end_gameplay() -> void:
 	_ended = true
 	board.input_enabled = false
+	Sound.stop_music()
 	for g in ghosts:
 		g.freeze()
+
+
+func _on_ready() -> void:
+	pass # Replace with function body.

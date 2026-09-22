@@ -16,21 +16,3 @@ One-time consumable purchases. The main game stays fully free; these are optiona
 | 9 | pacyrinth_power_009  | GIANT           | consumable | Ball doubles in radius for 10 seconds (smashes through more)       | 1.50 USD            |
 |10 | pacyrinth_power_010  | EXTRA LIFE      | consumable | Gain one extra life for the current run                            | 2.00 USD            |
 
-# AdMob Configuration
-
-Paste your AdMob unit IDs here once created in the AdMob console.
-
-| Ad Type | AdMob Unit ID (Paste here) |
-|---------|----------------------------|
-| App ID  |              ca-app-pub-7154983327212352~1298158776              |
-| Banner  |              ca-app-pub-7154983327212352/2144336583              |
-| Interstitial |         ca-app-pub-7154983327212352/6319296020              |
-
-Notes
-- Purchase flow: buy in STORE, the active boost (one at a time) is applied during play.
-- No subscriptions planned. All items are one-time consumables (respawning ability available in STORE).
-- IAP requires a Google Play billing license + a Godot Play Billing plugin (roadmap).
-
-
-
-* Old ID: ca-app-pub-3940256099942544~3347511713

@@ -18,6 +18,7 @@ Desktop.ini
 # User-specific files (keep *.jks: never commit the Android signing key)
 *.jks
 findings.md
+google-ads.md
 first-prompt.txt
 inapp-items.md
 tilt_maze_pacman_game_mockup.png

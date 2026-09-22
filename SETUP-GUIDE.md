@@ -191,7 +191,7 @@ Two hanging lamp fixtures (visible shades + glowing bulbs) light the board; the 
 ## 7. Troubleshooting
 
 - **`adb` not found / no devices**: try a different USB cable (charge-only cables are the #1 cause), re-accept the debugging popup, restart `adb kill-server && adb start-server`.
-- **App dies instantly with "Failed to create vulkan window" in logcat**: wedged graphics state or corrupted incremental install — run `adb uninstall com.pacyrinth.game`, reinstall fresh, relaunch. If it persists, reboot the phone.
+- **App dies instantly with "Failed to create vulkan window" in logcat**: wedged graphics state or corrupted incremental install — run `adb uninstall com.ramlisoft.game.pacyrinth`, reinstall fresh, relaunch. If it persists, reboot the phone.
 - **Verify sensors are being read**: `adb logcat -d -s godot:* | findstr "tilt sensor"` should print `tilt sensor active, raw=...`.
 - **Export fails mentioning Java/SDK**: check Editor Settings → Export → Android paths match section 1 (keys are `export/android/*` in Godot 4.7).
 - **Ball too twitchy/sluggish on phone**: tune `max_tilt_deg` (lower = gentler) and `smoothing` in `board_tilt.gd`; raise `linear_damp` in `ball.gd` to make it stop sooner.

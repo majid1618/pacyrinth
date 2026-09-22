@@ -10,6 +10,7 @@ to the Google Play Console.
 
 | # | Product ID (planned) | Name            | Type       | Description                                                        | Price (placeholder) |
 |---|----------------------|-----------------|------------|--------------------------------------------------------------------|---------------------|
+| 0 | pacyrinth_no_ads     | REMOVE ADS      | non-consumable | Permanently remove banner and interstitial ads from the game        | 1.99 USD            |
 | 1 | pacyrinth_power_001  | INVISIBILITY    | consumable | Become invisible to ghosts for 8 seconds                           | 0.50 USD            |
 | 2 | pacyrinth_power_002  | MAGNET          | consumable | Dots fly to you from far away for 10 seconds                       | 0.75 USD            |
 | 3 | pacyrinth_power_003  | SHIELD          | consumable | Survive one ghost hit; shield breaks instead                       | 0.80 USD            |

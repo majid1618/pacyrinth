@@ -15,9 +15,7 @@ Godot_v*_linux.x86_64
 Thumbs.db
 Desktop.ini
 
-# User-specific files
-*.txt
-Goodot_v*_linux.x86_64.zip
+# User-specific files (keep *.jks: never commit the Android signing key)
 *.jks
 findings.md
 first-prompt.txt
